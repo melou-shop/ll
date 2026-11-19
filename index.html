@@ -480,6 +480,7 @@ try {
   const cachedShopState = localStorage.getItem("melou_shopState_cache");
   if (cachedShopState) {
     shopState = { ...shopState, ...JSON.parse(cachedShopState) };
+updateProfileUI();
   }
 } catch (e) {}
         let allReviews = [];
