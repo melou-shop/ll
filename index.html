@@ -476,7 +476,12 @@
             adminPassword: "1234",
             musicUrl: ""
         };
-
+try {
+  const cachedShopState = localStorage.getItem("melou_shopState_cache");
+  if (cachedShopState) {
+    shopState = { ...shopState, ...JSON.parse(cachedShopState) };
+  }
+} catch (e) {}
         let allReviews = [];
 
         // ฟังก์ชันสร้างดาวและหัวใจลอยพื้นหลัง
@@ -714,8 +719,9 @@
 
                 // ฟังการเปลี่ยนแปลงข้อมูลร้านค้าแบบเรียลไทม์ (Real-time listener)
                 onSnapshot(profileDocRef, (docSnap) => {
-                    if (docSnap.exists()) {
+                    if (docSnap.exists()) { 
                         shopState = { ...shopState, ...docSnap.data() };
+localStorage.setItem("melou_shopState_cache", JSON.stringify(shopState));
                         updateProfileUI();
                     }
                 }, (error) => {
